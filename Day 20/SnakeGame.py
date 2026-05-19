@@ -34,14 +34,12 @@ while is_race_on:
         snake_obj.extend()
 
     #Detect collision with tail
-    for seg in snake_obj.segments:
-        if seg == snake_obj.head:
-            pass
-        elif snake_obj.head.distance(seg) < 10:
+    for seg in snake_obj.segments[1:]:
+        if snake_obj.head.distance(seg) < 10:
             is_race_on = False
             score.game_over()
 
-    if snake_obj.head.xcor() > 280 or snake_obj.head.xcor() < -280 or snake_obj.head.ycor() > 280 or snake_obj.head.ycor() < -280:
+    if snake_obj.head.xcor() > 290 or snake_obj.head.xcor() < -290 or snake_obj.head.ycor() > 290 or snake_obj.head.ycor() < -290:
         score.game_over()
         is_race_on = False
 
