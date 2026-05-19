@@ -1,4 +1,3 @@
-import time
 from turtle import Turtle, Screen
 
 STARTING_POSITIONS=[(0,0), (-20,0), (-40,0)]
@@ -26,14 +25,10 @@ class Snake:
             self.segments.append(square)
 
     def move_snake(self):
-
         for seg_num in range(len(self.segments)-1, 0, -1):
             new_x= self.segments[seg_num -1].xcor()
             new_y= self.segments[seg_num -1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
-            if self.segments[seg_num].xcor() > 560 or self.segments[seg_num].ycor() > 560:
-                return False
-                print("Lost")
         self.segments[0].forward(MOVE_DISTANCE)
 
     def move_up(self):
@@ -43,7 +38,7 @@ class Snake:
 
     def move_down(self):
         print("Moving down")
-        if self.head.heading() != RIGHT:
+        if self.head.heading() != UP:
             self.head.setheading(DOWN)
 
     def move_left(self):
@@ -56,3 +51,12 @@ class Snake:
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
 
+    def add_segment(self, position):
+        square = Turtle(shape="square")
+        square.color("white")
+        square.penup()
+        square.goto(position)
+        self.segments.append(square)
+
+    def extend(self):
+        self.add_segment(self.segments[-1].position())
