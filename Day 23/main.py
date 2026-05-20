@@ -26,7 +26,6 @@ while is_game_on:
     car.move_cars()
     for c in car.cars:
         if c.distance(player) < 30:
-            score.game_over()
             is_game_on = False
     #Detect when player reaches finish line
     if player.finish_game_win():
