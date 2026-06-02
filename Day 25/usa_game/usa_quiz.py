@@ -24,7 +24,7 @@ data = pd.read_csv(csv_file_path)
 state_list = data.state.to_list()
 
 def ask_user_for_another_state():
-    answer_state = screen.textinput(f"Guess the State: {len(guessed_states)}/50", prompt="What is another state's name? ").capitalize()
+    answer_state = screen.textinput(f"Guess the State: {len(guessed_states)}/50", prompt="What is another state's name? ").title()
     return answer_state
 
 def move_turtle(answer):
