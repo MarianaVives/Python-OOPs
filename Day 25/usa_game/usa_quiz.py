@@ -40,10 +40,11 @@ while len(guessed_states) < 50:
     turtle.shape(img)
     ans = ask_user_for_another_state()
     if ans == "Exit":
-        missing_states = []
-        for state in state_list:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states=[s for s in state_list if s not in guessed_states]
+        #missing_states = []
+        #for state in state_list:
+        #    if state not in guessed_states:
+        #        missing_states.append(state)
         missing_states_df = pd.DataFrame(missing_states)
         missing_states_df.to_csv("states_to_study.csv")
 
