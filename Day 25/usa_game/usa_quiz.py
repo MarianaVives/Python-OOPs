@@ -35,7 +35,6 @@ def move_turtle(answer):
     t.goto(float(state_data.x.item()), float(state_data.y.item()))
     t.write(ans)
 
-
 while len(guessed_states) < 50:
     turtle.shape(img)
     ans = ask_user_for_another_state()
