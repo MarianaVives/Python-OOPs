@@ -1,3 +1,4 @@
+import json
 import os
 from tkinter import *
 from tkinter import messagebox
@@ -39,16 +40,16 @@ email_text.grid(row=2, column=0)
 pswd_text = Label(text="Password: ", font=(FONT_NAME, 10))
 pswd_text.grid(row=3, column=0)
 
-website_entry = Entry(width=35,font=(FONT_NAME_2, 10))
-website_entry.grid(row=1, column=1, columnspan=2,  sticky="EW")
+website_entry = Entry(width=25,font=(FONT_NAME_2, 10))
+website_entry.grid(row=1, column=1, columnspan=2,  sticky="W")
 website_entry.focus()
 
 email_user_entry = Entry(width=35, font=(FONT_NAME_2, 10))
 email_user_entry.insert(END, "email@gmail.com")
 email_user_entry.grid(row=2, column=1, columnspan=2, sticky="EW")
 
-password_entry = Entry(width=30,font=(FONT_NAME_2, 10))
-password_entry.grid(row=3, column=1, sticky="W")
+password_entry = Entry(width=25,font=(FONT_NAME_2, 10))
+password_entry.grid(row=3, column=1, columnspan=2, sticky="W")
 
 # --- Add a password ---
 def add_password():
@@ -75,10 +76,44 @@ def generate_password():
 
 # --- Save data in TXT ---
 def save_info(website, email, password):
-    with open("MyFile.txt", "a") as file:
-        file.write(f"{website} | {email} | {password}\n")
-    website_entry.delete(0, END)
-    password_entry.delete(0, END)
+    new_data = {website: {
+        "email": email,
+        "password": password
+    }}
+    try:
+        with open("MyFile.json", "r") as file:
+            #Read old data
+            data = json.load(file)
+    except FileNotFoundError:
+        with open("MyFile.json", "w") as file:
+            json.dump(new_data, file, indent=4)
+    else:
+        #updating new data
+        data.update(new_data)
+        #write the updated data
+        with open("MyFile.json", "w") as file:
+            json.dump(data, file, indent=4)
+    finally:
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
+
+def find_password():
+    website = website_entry.get()
+    try:
+        search_data(website)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No data file found.")
+
+def search_data(website):
+    with open("MyFile.json", "r") as file:
+        data = json.load(file)
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"You have previously stored this information. \n Email: {email} \n Password: {password} ")
+        else:
+            messagebox.showinfo(title="Error",
+                                    message=f"Your information for {website} has not been previously saved for this website.")
 
 # --- Confirm data entry ---
 def confirm_entry(website, email, password):
@@ -93,6 +128,9 @@ def put_password_in_paperclip(password):
 # --- Buttons ---
 generate_passw_btn = Button(text="Generate Password", font=(FONT_NAME, 10), command=generate_password)
 generate_passw_btn.grid(row=3, column=2)
+
+search_btn = Button(text="Search", font=(FONT_NAME, 10), command=find_password)
+search_btn.grid(row=1, column=2)
 
 add_btn = Button(text="Add", font=(FONT_NAME, 10), command=add_password)
 add_btn.grid(row=4, column=1, columnspan=2, sticky="EW")

@@ -12,10 +12,14 @@ data = pd.read_csv(alphabet_full_path)
 var ={ row.letter:row.code for (index, row) in data.iterrows()}
 print(var)
 
-#TODO 1. Create dictionary in format:
-#{"A":"Alfa", "B":"Bravo", etc}
+def generate_phonetic():
+    word = input("Enter a word: ").upper()
+    try:
+        alphabet_for_input_word = [var[w] for w in word]
+    except KeyError:
+        print("Sorry, enter letters from the alphabet only please.")
+        generate_phonetic()
+    else:
+        print(alphabet_for_input_word)
 
-#TODO 2. Input word and spell it
-word = input("Enter a word: ").upper()
-alphabet_for_input_word = [var[w] for w in word]
-print(alphabet_for_input_word)
+generate_phonetic()
