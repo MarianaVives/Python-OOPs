@@ -97,6 +97,7 @@ def save_info(website, email, password):
         website_entry.delete(0, END)
         password_entry.delete(0, END)
 
+# --- Find a password --
 def find_password():
     website = website_entry.get()
     try:
@@ -104,6 +105,7 @@ def find_password():
     except FileNotFoundError:
         messagebox.showinfo(title="Error", message="No data file found.")
 
+# --- Search for website data in the json file ---
 def search_data(website):
     with open("MyFile.json", "r") as file:
         data = json.load(file)
