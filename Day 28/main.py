@@ -50,8 +50,10 @@ def start_timer():
 def count_down(count):
     minutes= math.floor(count/60)
     seconds= count%60
+    #Make sure that if less than two digits, add a 0 at the begining
     if len(str(abs(seconds)))<2:
         seconds="0"+str(seconds)
+    #Update the number in the timer to the new mins and secs
     canvas.itemconfig(timer_txt, text=f"{minutes}:{seconds}")
     if count > 0:
         global timer
