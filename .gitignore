@@ -1,0 +1,14 @@
+.json
+*.log
+config.yml
+__pycache__/
+*.py[cod]
+*.so
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+htmlcov/
+.coverage
