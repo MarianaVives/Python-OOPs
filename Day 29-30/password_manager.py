@@ -69,12 +69,11 @@ def generate_password():
     numbers_password = [random.choice(numbers) for _ in range(num_numbers)]
     password_list = letters_password + symbols_password + numbers_password
     random.shuffle(password_list)
-    print(password_list)
     new_password = "".join(password_list)
     password_entry.insert(END, new_password)
     put_password_in_paperclip(new_password)
 
-# --- Save data in TXT ---
+# --- Save data  ---
 def save_info(website, email, password):
     new_data = {website: {
         "email": email,
@@ -124,7 +123,6 @@ def confirm_entry(website, email, password):
 
 # ---Use Paper Clip dependency functionality to add password to paperclip ---
 def put_password_in_paperclip(password):
-    print("Copying password")
     pyperclip.copy(password)
 
 # --- Buttons ---
