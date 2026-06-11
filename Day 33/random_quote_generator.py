@@ -8,7 +8,6 @@ current_dir = os.getcwd()
 ninja_full_path = os.path.join(current_dir, ninja_path)
 API_KEY = "c0EebPPBPVnxMb0tjhfnScJg3PKEU87d5lBt2m74"
 
-
 window = Tk()
 window.title("Random Quote Generator")
 window.config(padx = 40, pady = 10, background = "black")
@@ -19,8 +18,6 @@ autor_txt = canvas.create_text(550, 500, text="", width=250, fill="white", font=
 canvas.grid(row=2, column=1, columnspan=2)
 photo_img = PhotoImage(file=ninja_full_path)
 canvas.create_image(200,300, image=photo_img)
-
-
 
 def get_quote():
     """calls an api to retrieve randomly generated quotes"""
@@ -33,7 +30,5 @@ def get_quote():
     canvas.itemconfig(autor_txt, text=f"-{author}")
 
 get_quote()
-
-
 
 window.mainloop()
