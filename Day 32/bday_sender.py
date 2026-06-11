@@ -31,6 +31,7 @@ try:
 except FileNotFoundError:
     print("File not found")
 else:
+    #(12,24):Mariana, Mariana@live.com, 1234,02,01
     birthdays_dict = {(data_row["month"], data_row["day"]): data_row for (index,data_row) in data.iterrows()}
 
 if today_tuple in birthdays_dict:
