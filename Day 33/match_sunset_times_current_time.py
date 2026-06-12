@@ -10,15 +10,16 @@ my_email = "automationqatesting65@gmail.com"
 password = "mvyq lcah icwj tpbz"
 to_email = "automationqatesting65@yahoo.com"
 subject = "Look Up!"
-body= "ISS is overhead and it is nightime."
+body_email= "ISS is overhead and it is nightime."
 
 def send_email():
+    print("email  is sent")
     with smtplib.SMTP("smtp.gmail.com") as connection:  # email provider @gmail com | smtp.mail.yahoo.com
         connection.starttls()  # Transport Layer Security - encrypt messages
         connection.login(user=my_email, password=password)
         connection.sendmail(from_addr=my_email,
                             to_addrs=to_email,
-                            msg=f"Subject:{subject}\n\n{body}")
+                            msg=f"Subject:{subject}\n\n{body_email}")
 
 geolocator = Nominatim(user_agent="ISS Location")
 
@@ -49,11 +50,9 @@ def is_iss_overhead():
     response = requests.get(url="http://api.open-notify.org/iss-now.json")
     response.raise_for_status()
     body = response.json()
-    print(body)
     iss_longitude = float(body["iss_position"]["longitude"])
     iss_latitude = float(body["iss_position"]["latitude"])
     print(iss_longitude, iss_latitude)
-    position = (body['iss_position']['latitude'], body['iss_position']['longitude'])
     location = geolocator.reverse((MY_LAT,MY_LNG))
     print(location.address)
     if MY_LAT-5 <= iss_latitude <= MY_LAT+5 and MY_LNG <= iss_longitude <= MY_LNG+5:
@@ -68,9 +67,10 @@ def is_night():
         return False
 
 while True:
-    time.sleep(240)
+    time.sleep(60)
     if is_iss_overhead() and is_night():
         print("look UP!!")
         #Send an email to look up
         send_email()
+        print("despues de enviar email")
 
